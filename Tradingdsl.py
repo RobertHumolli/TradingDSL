@@ -15,7 +15,7 @@ dsl_grammar = """
 
     VALUE: /[0-9]+/
 
-    COMPARISON: ">" | "<"
+    COMPARISON: ">" | "<" | ">=" | "<=" | "=="
 
     %import common.WS
     %ignore WS
@@ -77,7 +77,12 @@ def execute_command(command):
             return
 
         #Will state whether the condition is met or not and execute the buy order depending on this.
-        if (comparison == ">" and current_price > value) or (comparison == "<" and current_price < value):
+        if ( 
+            (comparison == ">" and current_price > value) or 
+            (comparison == "<" and current_price < value) or
+            (comparison == ">=" and current_price >= value) or
+            (comparison == "<=" and current_price <= value)
+        ):
             print(f"Executing {action.upper()} order for {symbol} at current price {current_price}")
         else:
             print(f"Condition not met for {action.upper()} order for {symbol}: current price {current_price} is not {comparison} {value}")

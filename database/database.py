@@ -71,4 +71,4 @@ for symbol in symbols:
         if stock_data:
             insert_stock_data(stock_data)
 
-conn.close()  # ✅ Close the database connection
+conn.close()  
