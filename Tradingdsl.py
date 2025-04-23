@@ -95,7 +95,7 @@ class TradingTransformer(Transformer):
     def COMPARISON(self, token):
         return token.value
 
-# Execute a command object
+# Execute a command object based on its type, so it can do a single command or a looped command
 def execute_command(command):
     if command["type"] == "single":
         _execute_single(command)
@@ -117,7 +117,12 @@ def _execute_single(command):
     quantity = command.get("quantity", 1)
     condition = command.get("condition")
 
-    
+    if quantity is None:
+        quantity = 1
+
+    if quantity <= 0:
+        print(f"Invalid quantity: {quantity}")
+        return
 
     current_price = get_latest_stock_price(symbol)
 
